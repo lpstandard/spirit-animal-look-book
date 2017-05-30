@@ -18,6 +18,16 @@ class App extends Component {
     };
   }
 
+  componentDidMount() {
+    auth.onAuthStateChanged((user) => {
+      if(user) {
+        this.setState({ user });
+        this.usersRef = database.ref('/users');
+        this.userRef = this.userRef.child(user.uid);
+      }
+    });
+  }
+
   render() {
     const { user, users } = this.state;
 
